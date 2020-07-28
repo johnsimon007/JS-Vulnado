@@ -17,7 +17,7 @@ pipeline {
 		    steps {
 	        sh 'rm trufflehog || true'
 		sh 'docker pull gesellix/trufflehog'
-		sh 'docker run -t gesellix/trufflehog --json https://github.com/devopssecure/webapp.git > trufflehog'
+		sh 'docker run -t gesellix/trufflehog --json https://github.com/johnsimon007/JS-Vulnado.git > trufflehog'
 		sh 'cat trufflehog'
 	    }
 	    }
@@ -25,7 +25,7 @@ pipeline {
 	  stage ('Dependency Check') {
 		steps {
 		     sh 'rm owasp-* || true'
-		     sh 'wget https://raw.githubusercontent.com/devopssecure/webapp/master/owasp-dependency-check.sh'	
+		     sh 'wget https://raw.githubusercontent.com/johnsimon007/Simple-CI-CD-Pipeline/master/owasp-dependency-check.sh'	
 		     sh 'chmod +x owasp-dependency-check.sh'
 		     sh 'bash owasp-dependency-check.sh'
 		     sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
