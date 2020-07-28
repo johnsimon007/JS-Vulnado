@@ -13,7 +13,13 @@ pipeline {
             ''' 
       }
     }
-       
+       stage ('Check-Git-Secrets') {
+      steps {
+        sh 'rm trufflehog || true'
+        sh 'docker run gesellix/trufflehog --json https://github.com/johnsimon007/Simple-CI-CD-Pipeline.git > trufflehog'
+        sh 'cat trufflehog'
+      }
+    } 
   stage ('SAST') {
 		steps {
 		withSonarQubeEnv('sonar') {
