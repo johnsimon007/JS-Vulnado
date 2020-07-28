@@ -13,21 +13,11 @@ pipeline {
             ''' 
       }
     }
-	      stage ('Check Git Secrets') {
-		    steps {
-	        sh 'rm trufflehog || true'
-		sh 'docker pull gesellix/trufflehog'
-		sh 'docker run -t gesellix/trufflehog --json https://github.com/johnsimon007/JS-Vulnado.git > trufflehog'
-		sh 'cat trufflehog'
-	    }
-	    }
-	    
-	
        
   stage ('SAST') {
 		steps {
 		withSonarQubeEnv('sonar') {
-			sh 'mvn clean deploy sonar:sonar'
+			sh 'mvn clean install sonar:sonar'
 			sh 'cat target/sonar/report-task.txt'
 		       }
 		}
